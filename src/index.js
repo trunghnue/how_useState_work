@@ -36,7 +36,14 @@ function Gallery() {
   const [showMore, setShowMore] = useState(false);
 
   function handleNextClick() {
-    setIndex(index + 1);
+    if (index < sculptureList.length - 1) {
+      setIndex(index + 1);
+    }
+  }
+  function handlePreviousClick() {
+    if (index > 0) {
+      setIndex(index - 1);
+    }
   }
 
   function handleMoreClick() {
@@ -48,6 +55,7 @@ function Gallery() {
   // return an output object instead of JSX.
   return {
     onNextClick: handleNextClick,
+    onPreviousClick: handlePreviousClick,
     onMoreClick: handleMoreClick,
     header: `${sculpture.name} by ${sculpture.artist}`,
     counter: `${index + 1} of ${sculptureList.length}`,
@@ -67,6 +75,7 @@ function updateDOM() {
   // Update the DOM to match the output.
   // This is the part React does for you.
   nextButton.onclick = output.onNextClick;
+  previousButton.onclick = output.onPreviousClick;
   header.textContent = output.header;
   moreButton.onclick = output.onMoreClick;
   moreButton.textContent = output.more;
@@ -81,6 +90,7 @@ function updateDOM() {
 }
 
 let nextButton = document.getElementById("nextButton");
+let previousButton = document.getElementById("previousButton");
 let header = document.getElementById("header");
 let moreButton = document.getElementById("moreButton");
 let description = document.getElementById("description");
